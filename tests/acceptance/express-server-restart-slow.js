@@ -18,10 +18,10 @@ var copyFixtureFiles = require('../helpers/copy-fixture-files');
 var assertDirEmpty   = require('../helpers/assert-dir-empty');
 
 describe('Acceptance: express server restart', function () {
+  this.timeout(360000);
   var appName = 'express-server-restart-test-app';
 
   before(function() {
-    this.timeout(360000);
 
     return createTestTargets(appName).then(function() {
       process.chdir(appName);
@@ -30,17 +30,14 @@ describe('Acceptance: express server restart', function () {
   });
 
   after(function() {
-    this.timeout(15000);
     return teardownTestTargets();
   });
 
   beforeEach(function() {
-    this.timeout(15000);
     return linkDependencies(appName);
   });
 
   afterEach(function() {
-    this.timeout(15000);
     return cleanupRun().then(function() {
       assertDirEmpty('tmp');
     });
@@ -122,24 +119,20 @@ describe('Acceptance: express server restart', function () {
     });
   }
 
-  it('Server restarts successfully on copy1', function() {
-    this.timeout(30000);
-
+  it.only('Server restarts successfully on copy1', function() {
     ensureTestFileContents('Initial Contents' + EOL, 'Test file initialized properly.');
     return runServer(getRunCommandOptions(onChildSpawnedSingleCopy('copy1', 'Copy1 contents of A.')));
   });
 
   it('Server restarts successfully on copy2', function() {
-    this.timeout(30000);
-
     ensureTestFileContents('Initial Contents' + EOL, 'Test file initialized properly.');
+
     return runServer(getRunCommandOptions(onChildSpawnedSingleCopy('copy2', 'Copy2 contents of A. Copy2 contents of B.')));
   });
 
   it('Server restarts successfully on multiple copies', function() {
-    this.timeout(90000);
-
     ensureTestFileContents('Initial Contents' + EOL, 'Test file initialized properly.');
+
     return runServer(getRunCommandOptions(onChildSpawnedMultipleCopies()));
   });
 });
