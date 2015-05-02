@@ -15,9 +15,11 @@ module.exports = function(app) {
 
   <%= camelizedModuleName %>Router.get('/', function(req, res) {
     // Returns all values
-    res.send({
-      '<%= dasherizedModuleName %>': values
-    });
+    setTimeout(function() {
+      res.send({
+        '<%= dasherizedModuleName %>': values
+      });
+    }, responseDelay);
   });
 
   <%= camelizedModuleName %>Router.post('/', function(req, res) {
