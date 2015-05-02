@@ -3,7 +3,7 @@ module.exports = function(app) {
   var <%= camelizedModuleName %>Router = express.Router();
 
   // Set a delay in ms to test slow responses
-  var responseDelay = 1000;
+  var responseDelay = 1;
 
   // Populate your <%= camelizedModuleName %> values here
   var values = [
